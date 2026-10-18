@@ -1,0 +1,67 @@
+name: Post-Quantum Stateless Hash-Based Digital Signature SDK CI Gate
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sdk repository
+        uses: actions/checkout@v4
+        with:
+          path: qmoosa-pqc-slhdsa-sdk
+
+      - name: Checkout protocol repository
+        uses: actions/checkout@v4
+        with:
+          repository: elon00/qmoosa-pqc-slhdsa-protocol
+          ref: main
+          path: qmoosa-pqc-slhdsa-protocol
+
+      - name: Checkout engine repository
+        uses: actions/checkout@v4
+        with:
+          repository: elon00/qmoosa-pqc-slhdsa-engine
+          ref: main
+          path: qmoosa-pqc-slhdsa-engine
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install and build protocol dependency
+        run: |
+          cd qmoosa-pqc-slhdsa-protocol
+          npm install
+          npm run build
+
+      - name: Install and build engine dependency
+        run: |
+          cd qmoosa-pqc-slhdsa-engine
+          npm install
+          npm run build
+
+      - name: Install dependencies in sdk
+        run: |
+          cd qmoosa-pqc-slhdsa-sdk
+          npm install
+
+      - name: Build TypeScript
+        run: |
+          cd qmoosa-pqc-slhdsa-sdk
+          npm run build
+
+      - name: Run SDK Cryptographic & Transaction Test Suite
+        run: |
+          cd qmoosa-pqc-slhdsa-sdk
+          npm test
+
+      - name: Static Type & Lint Check
+        run: |
+          cd qmoosa-pqc-slhdsa-sdk
+          npm run lint

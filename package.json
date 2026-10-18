@@ -1,0 +1,34 @@
+{
+  "name": "@qmoosa/pqc-slhdsa-sdk",
+  "version": "1.0.0",
+  "description": "QMOOSA Post-Quantum Cryptography — NIST FIPS 205 SLH-DSA TypeScript SDK & Web4 Stateless Hash Signer",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node --test tests/sdk.test.mjs",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@qmoosa/pqc-slhdsa-protocol": "file:../qmoosa-pqc-slhdsa-protocol",
+    "@qmoosa/pqc-slhdsa-engine": "file:../qmoosa-pqc-slhdsa-engine"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
+  },
+  "keywords": [
+    "qmoosa",
+    "pqc",
+    "fips-205",
+    "slh-dsa",
+    "sphincs-plus",
+    "sdk",
+    "stateless-hash",
+    "transaction-signer",
+    "web4"
+  ],
+  "author": "elon00",
+  "license": "MIT"
+}
